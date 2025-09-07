@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dw-homepage-api", "dw-homepage-api.csproj", "{28E5587F-C4D9-8CB0-2D89-5B84D74B1A2C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28E5587F-C4D9-8CB0-2D89-5B84D74B1A2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28E5587F-C4D9-8CB0-2D89-5B84D74B1A2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28E5587F-C4D9-8CB0-2D89-5B84D74B1A2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28E5587F-C4D9-8CB0-2D89-5B84D74B1A2C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8B21254E-4FD2-42CA-8F78-3BB5DFB4AF2B}
+	EndGlobalSection
+EndGlobal
