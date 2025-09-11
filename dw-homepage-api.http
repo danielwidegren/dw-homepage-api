@@ -1,6 +1,9 @@
 @dw_homepage_api_HostAddress = http://localhost:5299
 
-GET {{dw_homepage_api_HostAddress}}/weatherforecast/
+GET {{dw_homepage_api_HostAddress}}/songs/
 Accept: application/json
+
+GET {{dw_homepage_api_HostAddress}}/weatherforecast/
+Accept: audio/wav
 
 ###
