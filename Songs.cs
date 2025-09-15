@@ -42,12 +42,12 @@ namespace dw_homepage_api
         }
     }
 
-    public class Song(string name, string artist, string album, int trackNumber, string information, string fileName)
+    public class Song(string name, string artist, string release, int trackNumber, string information, string fileName)
     {
 
         public string Name { get; } = name;
         public string Artist { get; } = artist;
-        public string Album { get; } = album;
+        public string Release { get; } = release;
         public int TrackNumber { get; } = trackNumber;
         public string Information { get; } = information;
         public string FileName { get; } = fileName;

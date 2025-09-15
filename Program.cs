@@ -29,16 +29,27 @@ app.MapGet("/songs", (SongService songService) =>
 })
 .WithName("GetSongs");
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/play/{filename}", (string filename) =>
 {
-    var path = Path.Combine(app.Environment.ContentRootPath, "files", "150725-magnolia-blues.wav");
+    // Sanitize filename.
+    if (Path.GetFileName(filename) != filename)
+    {
+        return Results.BadRequest("Invalid filename.");
+    }
+    var basePath = Path.Combine(app.Environment.ContentRootPath, "files");
+    var path = Path.GetFullPath(Path.Combine(basePath, filename));
+    // Check for path traversal.
+    if (!path.StartsWith(basePath))
+    {
+        return Results.BadRequest("Invalid filename.");
+    }
     if (!File.Exists(path))
     {
         return Results.NotFound("Song not found.");
     }
     var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
     var mimeType = "audio/wav";
-    return Results.File(path, contentType: mimeType, fileDownloadName: "magnolia.wav");
+    return Results.File(path, contentType: mimeType, fileDownloadName: filename);
 })
 .WithName("GetWeatherForecast");
 
