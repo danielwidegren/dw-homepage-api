@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using dw_homepage_api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,28 +30,45 @@ app.MapGet("/songs", (SongService songService) =>
 })
 .WithName("GetSongs");
 
-app.MapGet("/play/{filename}", (string filename) =>
+
+app.MapGet("/play/{filename}", async (string filename) =>
 {
-    // Sanitize filename.
-    if (Path.GetFileName(filename) != filename)
+    var blobClient = new BlobContainerClient(connectionString, "music").GetBlobClient(filename);
+
+    if (!await blobClient.ExistsAsync())
     {
-        return Results.BadRequest("Invalid filename.");
+        return Results.NotFound();
     }
-    var basePath = Path.Combine(app.Environment.ContentRootPath, "files");
-    var path = Path.GetFullPath(Path.Combine(basePath, filename));
-    // Check for path traversal.
-    if (!path.StartsWith(basePath))
-    {
-        return Results.BadRequest("Invalid filename.");
-    }
-    if (!File.Exists(path))
-    {
-        return Results.NotFound("Song not found.");
-    }
-    var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+    var blobStream = await blobClient.OpenReadAsync();
     var mimeType = "audio/wav";
-    return Results.File(path, contentType: mimeType, fileDownloadName: filename);
+    return Results.File(blobStream, contentType: mimeType, fileDownloadName: filename);
 })
-.WithName("GetWeatherForecast");
+.WithName("playFile");
+
+// app.MapGet("/play/{filename}", (string filename) =>
+// {
+//     // Sanitize filename.
+//     if (Path.GetFileName(filename) != filename)
+//     {
+//         return Results.BadRequest("Invalid filename.");
+//     }
+//     var basePath = Path.Combine(app.Environment.ContentRootPath, "files");
+//     var path = Path.GetFullPath(Path.Combine(basePath, filename));
+//     // Check for path traversal.
+//     if (!path.StartsWith(basePath))
+//     {
+//         return Results.BadRequest("Invalid filename.");
+//     }
+//     if (!File.Exists(path))
+//     {
+//         return Results.NotFound("Song not found.");
+//     }
+//     var stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+//     var mimeType = "audio/wav";
+//     return Results.File(path, contentType: mimeType, fileDownloadName: filename);
+// })
+// .WithName("playFile");
+
 
 app.Run();
