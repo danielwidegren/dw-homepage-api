@@ -33,7 +33,7 @@ app.MapGet("/songs", (SongService songService) =>
 
 app.MapGet("/play/{filename}", async (string filename) =>
 {
-    var blobClient = new BlobContainerClient(connectionString, "music").GetBlobClient(filename);
+    var blobClient = new BlobContainerClient(connectionString, "music1").GetBlobClient(filename);
 
     if (!await blobClient.ExistsAsync())
     {
