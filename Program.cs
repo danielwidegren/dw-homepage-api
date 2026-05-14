@@ -15,6 +15,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    builder.Configuration.AddUserSecrets<Program>();
 }
 
 app.UseHttpsRedirection();
@@ -30,6 +31,7 @@ app.MapGet("/songs", (SongService songService) =>
 })
 .WithName("GetSongs");
 
+var connectionString = builder.Configuration["BlobConnectionString"];
 
 app.MapGet("/play/{filename}", async (string filename) =>
 {
