@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Azure.Storage.Blobs;
 using dw_homepage_api;
 
@@ -35,7 +36,21 @@ var connectionString = builder.Configuration["BlobConnectionString"];
 
 app.MapGet("/play/{filename}", async (string filename) =>
 {
-    var blobClient = new BlobContainerClient(connectionString, "music1").GetBlobClient(filename);
+    BlobClient? blobClient = null;
+    if (app.Environment.IsDevelopment())
+    {
+        blobClient = new BlobContainerClient(connectionString, "music1").GetBlobClient(filename);
+    }
+    else
+    {
+        var blobServiceClient = new BlobServiceClient(new Uri("https://music.blob.core.windows.net/"), new DefaultAzureCredential());
+        blobClient = blobServiceClient.GetBlobContainerClient("music").GetBlobClient(filename);
+    }
+
+    if (blobClient == null)
+    {
+        return Results.InternalServerError();
+    }
 
     if (!await blobClient.ExistsAsync())
     {
