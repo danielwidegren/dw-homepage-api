@@ -1,6 +1,10 @@
 ## Requirements
 * dotnet 10
 
+## Update dotnet (Linux)
+`sudo apt update`
+`sudo apt install dotnet-sdk-10.0`
+
 ## Start dev server
 `dotnet run`
 
@@ -32,3 +36,7 @@ The blob storage connection string is available in Azure via Storage account > S
 3. `ssh-add ~/.ssh/id_ed25519`.
   * Om det inte funkar, kör exakt path, `ssh-add C:\Users\$env:USERNAME\.ssh\id_ed25519`.
 4. `Get-Content ~/.ssh/id_ed25519.pub`. Kopiera och lägg in i Github.
+
+## Deploy to Azure (via VS Code extension)
+1. Run `dotnet restore`.
+1. Under AppServices, right-click danielwidegren and click 'Deploy to Web App'. 
