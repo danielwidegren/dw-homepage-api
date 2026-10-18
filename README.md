@@ -17,10 +17,18 @@
 ## Azure
 https://portal.azure.com/#home
 
+### Logs
+Logs, including output for Console.WriteLine etc., can be read via App Service then Monitoring > Log stream.
+
 ### Blob storage
 Blob storage called "music1" via the "music" storage account.
 
-#### Connection string
+#### System user for production
+A system assigned managed identity is activated via Azure, via App Service and then Settings > Identity.
+
+The requied access role to read the audio file blobs is "Storage Blob Data Reader" for the "music" Storage account.
+
+#### Connection string for development
 The blob storage connection string is available in Azure via Storage account > Security + networking > Access keys.
 
 #### Development environment blob storage secret

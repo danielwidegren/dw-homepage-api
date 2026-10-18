@@ -44,7 +44,8 @@ app.MapGet("/play/{filename}", async (string filename) =>
     else
     {
         var blobServiceClient = new BlobServiceClient(new Uri("https://music.blob.core.windows.net/"), new DefaultAzureCredential());
-        blobClient = blobServiceClient.GetBlobContainerClient("music").GetBlobClient(filename);
+        var containerClient = blobServiceClient.GetBlobContainerClient("music1");
+        blobClient = containerClient.GetBlobClient(filename);
     }
 
     if (blobClient == null)
