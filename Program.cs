@@ -24,9 +24,11 @@ app.UseHttpsRedirection();
 app.MapGet("/songs", (SongService songService) =>
 {
     var songs = songService.GetSongs();
-    var result = new Dictionary<string, Song[]>
+    var releases = songService.GetReleases();
+    var result = new Dictionary<string, object[]>
     {
-        { "data", songs }
+        { "data", songs },
+        { "releases", releases }
     };
     return Results.Ok(result);
 })

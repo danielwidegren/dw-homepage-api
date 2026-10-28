@@ -2,6 +2,19 @@ namespace dw_homepage_api
 {
     public class SongService
     {
+        public Release[] GetReleases()
+        {
+            return
+            [
+                new Release(
+                    "In Hard Luck Together",
+                    "Daniel Widegren",
+                    "Recorded on the 23rd of September 2026",
+                    ["dw-0926-1.jpg"] 
+                )
+            ];
+        }
+
         public Song[] GetSongs()
         {
             return
@@ -115,5 +128,14 @@ namespace dw_homepage_api
         public int TrackNumber { get; } = trackNumber;
         public string Information { get; } = information;
         public string FileName { get; } = fileName;
+    }
+
+    public class Release(string name, string artist, string information, string[] images)
+    {
+
+        public string Name { get; } = name;
+        public string Artist { get; } = artist;
+        public string Information { get; } = information;
+        public string[] Images { get; } = images;
     }
 }
